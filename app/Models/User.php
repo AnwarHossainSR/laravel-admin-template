@@ -6,7 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 
@@ -14,6 +14,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'profile_picture', // Add the profile picture
+        'phone_number',    // Add phone number
+        'address',         // Add address
+        'role',            // Add user role (admin, user, etc.)
+        'status',          // Add account status (active, inactive)
     ];
 
     protected $hidden = [

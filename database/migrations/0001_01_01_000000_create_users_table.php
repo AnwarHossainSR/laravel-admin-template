@@ -18,6 +18,11 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->string('profile_picture')->nullable();  // Add profile picture field
+            $table->string('phone_number')->nullable();     // Add phone number field
+            $table->text('address')->nullable();            // Add address field
+            $table->enum('role', ['user', 'admin', 'moderator'])->default('user'); // Add role field
+            $table->enum('status', ['active', 'inactive', 'suspended'])->default('active'); // Add status field
             $table->timestamps();
         });
 
