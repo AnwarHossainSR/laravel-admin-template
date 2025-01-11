@@ -1,3 +1,4 @@
+import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Head, Link } from '@inertiajs/react';
 import { Menu } from 'lucide-react';
 import React from 'react';
@@ -11,11 +12,7 @@ const Navigation = ({ auth }) => {
         <div className="flex h-16 justify-between">
           <div className="flex">
             <Link href="/" className="flex items-center">
-              <img
-                className="h-8 w-auto"
-                src="/api/placeholder/32/32"
-                alt="Logo"
-              />
+              <ApplicationLogo className="h-8 w-auto fill-current text-gray-800 dark:text-white" />
               <span className="ml-2 text-xl font-bold text-gray-900 dark:text-white">
                 Company
               </span>
