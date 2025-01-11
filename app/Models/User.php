@@ -5,25 +5,20 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
-
-    // Use UUID as the primary key
-    protected $keyType = 'string';
-    public $incrementing = false; // Disable auto-incrementing since UUID is used
 
     protected $fillable = [
         'name',
         'email',
         'password',
-        'profile_picture',
-        'phone_number',
-        'address',
-        'role',
-        'status',
+        'profile_picture', // Add the profile picture
+        'phone_number',    // Add phone number
+        'address',         // Add address
+        'role',            // Add user role (admin, user, etc.)
+        'status',          // Add account status (active, inactive)
     ];
 
     protected $hidden = [
@@ -34,14 +29,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    // Automatically generate UUID when creating a new user
-    protected static function booted()
-    {
-        static::creating(function ($user) {
-            if (empty($user->id)) {
-                $user->id = Str::uuid()->toString();
-            }
-        });
-    }
 }
