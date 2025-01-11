@@ -8,7 +8,7 @@ const Dropdown = ({ children }) => {
   const [open, setOpen] = useState(false);
 
   const toggleOpen = () => {
-    setOpen((previousState) => !previousState);
+    setOpen((prevState) => !prevState);
   };
 
   return (
@@ -23,8 +23,12 @@ const Trigger = ({ children }) => {
 
   return (
     <>
-      <div onClick={toggleOpen}>{children}</div>
-
+      <div
+        className="cursor-pointer rounded-md px-3 py-2 text-gray-700 hover:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700"
+        onClick={toggleOpen}
+      >
+        {children}
+      </div>
       {open && (
         <div
           className="fixed inset-0 z-40"
@@ -38,7 +42,7 @@ const Trigger = ({ children }) => {
 const Content = ({
   align = 'right',
   width = '48',
-  contentClasses = 'py-1 bg-white',
+  contentClasses = 'py-2 bg-white dark:bg-gray-800',
   children,
 }) => {
   const { open, setOpen } = useContext(DropDownContext);
@@ -69,13 +73,11 @@ const Content = ({
         leaveTo="opacity-0 scale-95"
       >
         <div
-          className={`absolute z-50 mt-2 rounded-md shadow-lg ${alignmentClasses} ${widthClasses}`}
+          className={`absolute z-50 mt-2 rounded-lg shadow-md ${alignmentClasses} ${widthClasses}`}
           onClick={() => setOpen(false)}
         >
           <div
-            className={
-              `rounded-md ring-1 ring-black ring-opacity-5 ` + contentClasses
-            }
+            className={`rounded-lg ring-1 ring-gray-300 ring-opacity-20 dark:ring-gray-700 ${contentClasses}`}
           >
             {children}
           </div>
@@ -85,16 +87,14 @@ const Content = ({
   );
 };
 
-const DropdownLink = ({ className = '', children, ...props }) => {
+const DropdownLink = ({ icon: Icon, className = '', children, ...props }) => {
   return (
     <Link
       {...props}
-      className={
-        'block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:bg-gray-100 focus:outline-none ' +
-        className
-      }
+      className={`flex items-center px-4 py-2 text-sm text-gray-700 transition duration-150 ease-in-out hover:bg-gray-100 focus:bg-gray-200 dark:text-gray-300 dark:hover:bg-gray-700 dark:focus:bg-gray-700 ${className}w-full`}
     >
-      {children}
+      {Icon && <Icon className="mr-2 h-5 w-5" />}
+      <span>{children}</span>
     </Link>
   );
 };

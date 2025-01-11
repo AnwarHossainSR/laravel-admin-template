@@ -25,29 +25,30 @@ export default function AuthenticatedLayout({ header, children }) {
 
               <div className="hidden sm:ms-10 sm:flex sm:items-center sm:space-x-8">
                 <NavLink
+                  className="text-gray-600 hover:text-gray-900 dark:text-white dark:hover:text-white"
                   href={route('dashboard')}
                   active={route().current('dashboard')}
                 >
                   Dashboard
                 </NavLink>
-                <Link
+                <NavLink
                   href="/services"
                   className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 >
                   Services
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   href="/about"
                   className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 >
                   About
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   href="/contact"
                   className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 >
                   Contact
-                </Link>
+                </NavLink>
               </div>
             </div>
 
@@ -142,7 +143,7 @@ export default function AuthenticatedLayout({ header, children }) {
               <ResponsiveNavLink
                 method="post"
                 href={route('logout')}
-                as="button"
+                className="text-red-600 hover:text-red-800"
               >
                 Log Out
               </ResponsiveNavLink>
@@ -153,7 +154,7 @@ export default function AuthenticatedLayout({ header, children }) {
 
       {header && (
         <header className="bg-white shadow dark:bg-gray-800">
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 lg:px-8">
             {header}
           </div>
         </header>
