@@ -16,24 +16,27 @@ export default function Edit({ mustVerifyEmail, status }) {
       <Head title="Profile" />
 
       <div className="py-12">
-        <div className="mx-auto max-w-7xl space-y-6 sm:px-6 lg:px-8">
-          {/* Update Profile Information Section */}
-          <div className="rounded-lg bg-white p-6 shadow-md dark:bg-gray-800 dark:text-gray-200">
-            <UpdateProfileInformationForm
-              mustVerifyEmail={mustVerifyEmail}
-              status={status}
-              className="max-w-xl"
-            />
-          </div>
+        <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
+          {/* Flex container for sections */}
+          <div className="flex flex-wrap gap-6">
+            {/* Update Profile Information Section */}
+            <div className="min-w-[300px] flex-1 rounded-lg bg-white p-6 shadow-md dark:bg-gray-800 dark:text-gray-200">
+              <UpdateProfileInformationForm
+                mustVerifyEmail={mustVerifyEmail}
+                status={status}
+                className="max-w-xl"
+              />
+            </div>
 
-          {/* Update Password Section */}
-          <div className="rounded-lg bg-white p-6 shadow-md dark:bg-gray-800 dark:text-gray-200">
-            <UpdatePasswordForm className="max-w-xl" />
-          </div>
+            {/* Update Password Section */}
+            <div className="min-w-[300px] flex-1 rounded-lg bg-white p-6 shadow-md dark:bg-gray-800 dark:text-gray-200">
+              <UpdatePasswordForm className="max-w-xl" />
+            </div>
 
-          {/* Delete User Section */}
-          <div className="rounded-lg bg-white p-6 shadow-md dark:bg-gray-800 dark:text-gray-200">
-            <DeleteUserForm className="max-w-xl" />
+            {/* Delete User Section */}
+            <div className="min-w-[300px] flex-1 rounded-lg bg-white p-6 shadow-md dark:bg-gray-800 dark:text-gray-200">
+              <DeleteUserForm className="max-w-xl" />
+            </div>
           </div>
         </div>
       </div>
