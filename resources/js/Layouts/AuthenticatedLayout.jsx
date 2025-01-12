@@ -4,12 +4,35 @@ import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link, usePage } from '@inertiajs/react';
 import { Menu } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function AuthenticatedLayout({ header, children }) {
   const user = usePage().props.auth.user;
   const [showingNavigationDropdown, setShowingNavigationDropdown] =
     useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isReversed, setIsReversed] = useState(false);
+
+  const textChunks = ['এ', 'ডু', 'প্রো'];
+
+  useEffect(() => {
+    const totalChunks = textChunks.length;
+    const interval = setInterval(() => {
+      if (!isReversed) {
+        setCurrentIndex(currentIndex + 1);
+        if (currentIndex === totalChunks - 1) {
+          setIsReversed(true);
+        }
+      } else {
+        setCurrentIndex(currentIndex - 1);
+        if (currentIndex === 0) {
+          setIsReversed(false);
+        }
+      }
+    }, 1500);
+
+    return () => clearInterval(interval);
+  }, [currentIndex, isReversed, textChunks.length]);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -21,6 +44,18 @@ export default function AuthenticatedLayout({ header, children }) {
                 <Link href="/">
                   <ApplicationLogo className="h-8 w-auto fill-current text-gray-800 dark:text-white" />
                 </Link>
+                <span className="ml-2 flex text-xl font-bold">
+                  {textChunks.map((chunk, index) => (
+                    <span
+                      key={index}
+                      className={`bg-gradient-to-r from-gray-300 via-gray-400 to-gray-500 bg-clip-text text-transparent transition-opacity duration-500 ${
+                        index <= currentIndex ? 'opacity-100' : 'opacity-0'
+                      }`}
+                    >
+                      {chunk}
+                    </span>
+                  ))}
+                </span>
               </div>
 
               <div className="hidden sm:ms-10 sm:flex sm:items-center sm:space-x-8">
@@ -32,22 +67,10 @@ export default function AuthenticatedLayout({ header, children }) {
                   Dashboard
                 </NavLink>
                 <NavLink
-                  href="/services"
+                  href="/users"
                   className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
                 >
-                  Services
-                </NavLink>
-                <NavLink
-                  href="/about"
-                  className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-                >
-                  About
-                </NavLink>
-                <NavLink
-                  href="/contact"
-                  className="text-gray-600 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
-                >
-                  Contact
+                  Users
                 </NavLink>
               </div>
             </div>
@@ -109,6 +132,7 @@ export default function AuthenticatedLayout({ header, children }) {
           </div>
         </div>
 
+        {/* Mobile Navigation */}
         <div
           className={
             (showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'
@@ -121,11 +145,10 @@ export default function AuthenticatedLayout({ header, children }) {
             >
               Dashboard
             </ResponsiveNavLink>
-            <ResponsiveNavLink href="/services">Services</ResponsiveNavLink>
-            <ResponsiveNavLink href="/about">About</ResponsiveNavLink>
-            <ResponsiveNavLink href="/contact">Contact</ResponsiveNavLink>
+            <ResponsiveNavLink href="/users">Users</ResponsiveNavLink>
           </div>
 
+          {/* User Info */}
           <div className="border-t border-gray-200 pb-1 pt-4 dark:border-gray-700">
             <div className="px-4">
               <div className="text-base font-medium text-gray-800 dark:text-gray-200">
@@ -136,6 +159,7 @@ export default function AuthenticatedLayout({ header, children }) {
               </div>
             </div>
 
+            {/* Dropdown Links */}
             <div className="mt-3 space-y-1">
               <ResponsiveNavLink href={route('profile.edit')}>
                 Profile
@@ -160,48 +184,12 @@ export default function AuthenticatedLayout({ header, children }) {
         </header>
       )}
 
+      {/* Main Content */}
       <main>{children}</main>
 
+      {/* Footer */}
       <footer className="mt-auto bg-gray-900 text-white">
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-            <div>
-              <h3 className="text-lg font-semibold">About Us</h3>
-              <p className="mt-4 text-gray-400">
-                Building the future with modern web technologies.
-              </p>
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold">Quick Links</h3>
-              <ul className="mt-4 space-y-2">
-                <li>
-                  <Link
-                    href="/services"
-                    className="text-gray-400 hover:text-white"
-                  >
-                    Services
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/about"
-                    className="text-gray-400 hover:text-white"
-                  >
-                    About
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    href="/contact"
-                    className="text-gray-400 hover:text-white"
-                  >
-                    Contact
-                  </Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
+        {/* Footer content can be added here if needed */}
       </footer>
     </div>
   );

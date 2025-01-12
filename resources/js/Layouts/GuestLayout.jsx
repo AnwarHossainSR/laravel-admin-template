@@ -1,3 +1,4 @@
+import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Link } from '@inertiajs/react';
 import { Menu } from 'lucide-react';
 import { useEffect, useState } from 'react';
@@ -50,20 +51,21 @@ const Navigation = ({ auth }) => {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
           <div className="flex items-center">
-            <Link href="/" className="flex items-center">
-              <span className="ml-2 flex text-xl font-bold">
-                {textChunks.map((chunk, index) => (
-                  <span
-                    key={index}
-                    className={`bg-gradient-to-r from-gray-300 via-gray-400 to-gray-500 bg-clip-text text-transparent transition-opacity duration-500 ${
-                      index <= currentIndex ? 'opacity-100' : 'opacity-0'
-                    }`}
-                  >
-                    {chunk}
-                  </span>
-                ))}
-              </span>
+            <Link href="/">
+              <ApplicationLogo className="h-8 w-auto fill-current text-gray-800 dark:text-white" />
             </Link>
+            <span className="ml-2 flex text-xl font-bold">
+              {textChunks.map((chunk, index) => (
+                <span
+                  key={index}
+                  className={`bg-gradient-to-r from-gray-300 via-gray-400 to-gray-500 bg-clip-text text-transparent transition-opacity duration-500 ${
+                    index <= currentIndex ? 'opacity-100' : 'opacity-0'
+                  }`}
+                >
+                  {chunk}
+                </span>
+              ))}
+            </span>
           </div>
 
           {/* Desktop Navigation */}
